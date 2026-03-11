@@ -1,0 +1,108 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logout-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 8px 14px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+.login-card {
+  display: flex;
+  justify-content: center;
+  border-radius: 40px;
+  flex-direction: column;
+}
+
+.login-card input {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #d1d5db;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 24px;
+  transition: 0.2s ease;
+  margin-bottom: 30px;
+  color: #d1d5db;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.login-button {
+  justify-content: center;
+  width: 160px;
+  padding: 14px 20px;
+  border-radius: 40px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  align-self: center;
+  font-size: 22px;
+}
+
+.login-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.mode-question {
+  justify-content: space-between;
+  margin-left: auto;
+  font-size: smaller;
+  margin-top: -15px;
+}
+
+.change-mode-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.change-mode-button:hover {
+  text-decoration: underline;
+}
+
+.change-mode-button:focus {
+  outline: none;
+}
+
+.change-mode-button:active {
+  background: none;
+}

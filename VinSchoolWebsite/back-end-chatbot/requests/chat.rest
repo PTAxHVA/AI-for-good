@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/chat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRodW9uZyIsImlkIjoiNjlhMDVjNWZhZWFjZjIzZGU1OGVjNmNmIiwiaWF0IjoxNzcyMTIwODMxLCJleHAiOjE3NzIxMjQ0MzF9.mDQj15Qa0gBIm5VUTWdVB5-7e0hkh7xiOKJifv-xrXg
+Content-Type: application/json
+
+{
+    "message": "Hello"
+}

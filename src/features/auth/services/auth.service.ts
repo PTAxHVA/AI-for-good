@@ -1,19 +1,6 @@
-export interface LoginCredentials {
-  username: string;
-  password: string;
-}
+import type { LoggedUser, LoginCredentials, RegisterPayload } from '../types/auth.types';
 
-export interface RegisterPayload {
-  username: string;
-  name: string;
-  password: string;
-}
-
-export interface LoggedUser {
-  token: string;
-  username: string;
-  name: string;
-}
+export type { LoggedUser, LoginCredentials, RegisterPayload };
 
 const parseError = async (response: Response, fallback: string) => {
   try {

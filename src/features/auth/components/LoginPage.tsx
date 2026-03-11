@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { LoggedUser } from '../services/auth.service';
+import type { LoggedUser } from '../types/auth.types';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 

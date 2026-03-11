@@ -10,7 +10,7 @@ import { Timeline } from '@/features/map/components/Timeline';
 import type { HistoricalEvent } from '@/features/map/types/history.types';
 import { QuizPanel } from '@/features/quiz/components/QuizPanel';
 import { StudyPath } from '@/features/study-path/components/StudyPath';
-import type { LoggedUser } from '@/features/auth/services/auth.service';
+import type { LoggedUser } from '@/features/auth/types/auth.types';
 import { Button } from '@/shared/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 import { MapPin, MessageSquare, Network, BookOpen, BarChart3, LogOut } from 'lucide-react';

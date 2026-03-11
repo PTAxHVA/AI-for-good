@@ -1,18 +1,11 @@
-export interface ChatContext {
-  name: string;
-  period: string;
-  location?: string;
-  content?: string;
-}
+import type { ChatContext, ChatReply } from '../types/chat.types';
+
+export type { ChatContext, ChatReply };
 
 interface SendChatPayload {
   token: string;
   message: string;
   context?: ChatContext;
-}
-
-export interface ChatReply {
-  reply: string;
 }
 
 const buildMessage = (message: string, context?: ChatContext) => {

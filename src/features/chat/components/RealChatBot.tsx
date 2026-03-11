@@ -3,7 +3,7 @@ import type { HistoricalEvent } from '@/features/map/types/history.types';
 import { Button } from '@/shared/ui/button';
 import { Card } from '@/shared/ui/card';
 import { Send } from 'lucide-react';
-import type { ChatContext } from '../services/chat.service';
+import type { ChatContext } from '../types/chat.types';
 import { sendChatMessage } from '../services/chat.service';
 
 interface RealChatBotProps {

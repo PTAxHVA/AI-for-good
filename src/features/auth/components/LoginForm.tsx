@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import type { LoggedUser } from '../services/auth.service';
+import type { LoggedUser } from '../types/auth.types';
 import { loginUser } from '../services/auth.service';
 import { Button } from '@/shared/ui/button';
 

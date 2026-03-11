@@ -7,8 +7,8 @@ __v0_jsx-dev-runtime.ts
 node_modules/
 build/
 dist/
-VinSchoolWebsite/back-end-chatbot/dist/
-VinSchoolWebsite/.git/
+server/.env
 .next/
 .env*.local
+__MACOSX/
 .DS_Store

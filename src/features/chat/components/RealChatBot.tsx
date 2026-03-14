@@ -67,7 +67,7 @@ export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChat
 
     try {
       setIsTyping(true);
-      const result = await sendChatMessage({ token, message, context });
+      const result = await sendChatMessage({ token, message });
       setMessages((prev) => [
         ...prev,
         {

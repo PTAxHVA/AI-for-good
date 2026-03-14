@@ -1,27 +1,11 @@
-import type { ChatContext, ChatReply } from '../types/chat.types';
+import type { ChatReply } from '../types/chat.types';
 
-export type { ChatContext, ChatReply };
+export type { ChatReply };
 
 interface SendChatPayload {
   token: string;
   message: string;
-  context?: ChatContext;
 }
-
-const buildMessage = (message: string, context?: ChatContext) => {
-  if (!context) {
-    return message;
-  }
-
-  const contextLines = [
-    `Tên mục: ${context.name}`,
-    `Thời kỳ: ${context.period}`,
-    context.location ? `Địa điểm: ${context.location}` : null,
-    context.content ? `Nội dung tham chiếu: ${context.content}` : null,
-  ].filter(Boolean);
-
-  return `[Ngữ cảnh]\n${contextLines.join('\n')}\n\n[Câu hỏi]\n${message}`;
-};
 
 const parseError = async (response: Response, fallback: string) => {
   try {
@@ -35,7 +19,7 @@ const parseError = async (response: Response, fallback: string) => {
   }
 };
 
-export const sendChatMessage = async ({ token, message, context }: SendChatPayload): Promise<ChatReply> => {
+export const sendChatMessage = async ({ token, message }: SendChatPayload): Promise<ChatReply> => {
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -43,7 +27,7 @@ export const sendChatMessage = async ({ token, message, context }: SendChatPaylo
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: buildMessage(message, context) }),
+      body: JSON.stringify({ message }),
     });
 
     if (!response.ok) {

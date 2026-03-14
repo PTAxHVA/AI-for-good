@@ -10,6 +10,22 @@ export interface CultureData {
   clothing: string;
 }
 
+export interface MediaAsset {
+  name: string;
+  url: string;
+}
+
+export type CultureSectionKey =
+  | 'area'
+  | 'weather'
+  | 'economy_and_trade'
+  | 'culture'
+  | 'art_and_writing'
+  | 'lifestyle_and_eating_habits'
+  | 'house'
+  | 'cultural_symbol'
+  | 'clothing';
+
 export interface HistoricalEvent {
   id: string;
   name: string;
@@ -37,6 +53,9 @@ export interface HistoricalEvent {
   };
   cultureData?: CultureData;
   cultureFieldKey?: keyof CultureData;
+  cultureSectionKey?: CultureSectionKey;
   cultureContent?: string;
+  cultureImages?: MediaAsset[];
+  cultureIcons?: MediaAsset[];
   locationLabel?: string;
 }

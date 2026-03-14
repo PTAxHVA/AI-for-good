@@ -1,0 +1,179 @@
+{
+    "Van Lang - Au Lac": {
+        "area": {
+            "info": "Chủ yếu ở Bắc Bộ và Bắc Trung Bộ Việt Nam ngày nay, trên lưu vực các con sông lớn như sông Hồng, sông Mã, sông Cả. Cư dân thường sinh sống ở gò đồi, chân núi và dải đất cao ven sông, hình thành các xóm làng định cư.",
+            "images": [
+                {
+                    "name": "Bản đồ Nhà nước Văn Lang-Âu Lạc",
+                    "url": "https://cdn3.olm.vn/upload/img_teacher/0305/img_teacher_2023-03-05_64046d1767cc7.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "area",
+                    "url": "https://png.pngtree.com/png-clipart/20240629/original/pngtree-an-icon-showing-the-landscape-with-a-circular-background-vector-png-image_15433587.png"
+                }
+            ]
+        },
+        "weather": {
+            "info": "Khí hậu nhiệt đới ẩm gió mùa, lượng mưa lớn, hệ thống sông ngòi dày đặc. Đất phù sa màu mỡ thuận lợi cho nông nghiệp trồng lúa nước. Điều kiện tự nhiên giúp động thực vật sinh trưởng phong phú. Khu vực còn có nhiều khoáng sản như đồng, sắt, thiếc, chì, tạo điều kiện cho nghề luyện kim phát triển sớm.",
+            "images": [],
+            "icons": [
+                {
+                    "name": "weather",
+                    "url": "https://cdn-icons-png.flaticon.com/512/5493/5493014.png"
+                }
+            ]
+        },
+        "economy_and_trade": {
+            "info": "Nông nghiệp trồng lúa nước là nền tảng kinh tế, cư dân đã biết đến nông nghiệp dùng cày và nhiều hình thức canh tác. Khai phá đất đai, mở rộng diện tích trồng lúa ở vùng đồng bằng và ven sông. Ngoài lúa còn trồng hoa màu, cây ăn quả, trồng dâu nuôi tằm. Chăn nuôi, đánh cá, săn bắt đóng vai trò quan trọng trong đời sống kinh tế. Thủ công nghiệp phát triển, gồm các nghề: chế tác đá, làm gốm, mộc, dệt vải và luyện kim. Nghề đúc đồng phát triển vượt bậc, với các sản phẩm như trống đồng, thạp đồng, công cụ lao động bằng đồng, vũ khí, đồ trang sức. Người Việt cổ cũng bước đầu biết rèn sắt. Giao thông chủ yếu bằng đường thủy, phương tiện là thuyền và bè.",
+            "images": [
+                {
+                    "name": "Lưỡi cày đồng",
+                    "url": "https://thanhcoloa.vn/storage/tin-tuc/2022/luoi-cay/2.jpg"
+                },
+                {
+                    "name": "Trồng lúa nước",
+                    "url": "https://scontent.fhan20-1.fna.fbcdn.net/v/t1.6435-9/186474615_4171063559624214_319578859900023084_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=nTY0ZBJ7U9oQ7kNvwGzBUZx&_nc_oc=Adm10ae2ECXJTMjTP6oS7fG-AkdSsjiaAbCgZnqTn3JQ9Ijy4uGbpC1aTJV4VttH3JE&_nc_zt=23&_nc_ht=scontent.fhan20-1.fna&_nc_gid=dlnC0xZNs5FfF3eDVUVtLg&_nc_ss=8&oh=00_Afzt0GJvZdX95JA4dGCxOg2XCWoWqyIf1-KvhNy8qHmVTA&oe=69D4CCEB"
+                },
+                {
+                    "name": "Luyện kim, đúc đồng",
+                    "url": "https://heritagevietnamairlines.com/wp-content/uploads/2021/07/14.03.31-%EC%A4%91%EB%B0%95%EB%B2%A0%ED%8A%B8%EB%82%A8-163-223.jpg"
+                },
+                {
+                    "name": "Chõ gốm",
+                    "url": "https://cdn.tienphong.vn/images/65d5f052c0c6ddf1d67a2bbde83479fb71fac75e625d4957c46669a49213ec32401d4b4c10635eaa0cc3282f943a72fc/dsc00856.jpg"
+                },
+                {
+                    "name": "Thợ dệt",
+                    "url": "https://thethaovanhoa.mediacdn.vn/thumb_w/860/372676912336973824/2024/4/25/tho-det-17140046704541879661301.jpg"
+                },
+                {
+                    "name": "Mảnh lụa tơ tằm thời kỳ đông sơn",
+                    "url": "https://thethaovanhoa.mediacdn.vn/372676912336973824/2024/4/25/vai-soc-171400467028185403395.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "economy and trade",
+                    "url": "https://png.pngtree.com/png-vector/20190601/ourmid/pngtree-financial-economic-rise-curve-png-image_1144566.jpg"
+                }
+            ]
+        },
+        "culture": {
+            "info": "Thờ cúng tổ tiên và những người có công với cộng đồng. Thờ các vị thần tự nhiên như thần Sông, thần Núi, thần Mặt Trời. Tồn tại tín ngưỡng phồn thực. Các lễ hội gắn với nông nghiệp trồng lúa nước được tổ chức thường xuyên trong cộng đồng. Một số tập tục phổ biến: xăm mình, nhuộm răng đen, ăn trầu, làm bánh chưng, bánh giầy.",
+            "images": [
+                {
+                    "name": "Mặt trời được khắc ở trung tâm của trống đồng",
+                    "url": "https://baotanglichsu.vn/DataFiles/2024/09/News/Tieng%20Viet/16.9.2024/Tao%20sang%20tho"
+                },
+                {
+                    "name": "Tượng nam nữ giao hoan trên nắp thạp đồng",
+                    "url": "https://i1-vnexpress.vnecdn.net/2016/02/01/thapdong1-8948-1454335648.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=G96kkieHa1o76-CFAerAlg"
+                },
+                {
+                    "name": "Lễ hội thờ cúng Hùng Vương",
+                    "url": "https://image.ngaynay.vn/w890/Uploaded/2026/ihvnphf/2019_01_28/le_hoi_hung_vuong_A_GBGL.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "culture",
+                    "url": "https://static.thenounproject.com/png/2778068-200.png"
+                }
+            ]
+        },
+        "art_and_writing": {
+            "info": "Nghệ thuật đạt trình độ thẩm mỹ khá cao, thể hiện qua nhiều hiện vật như trống đồng, thạp đồng, đồ trang sức, tượng người, chim, thú. Hoa văn trên hiện vật thường mô tả nhà sàn, thuyền, cảnh giã gạo, sinh hoạt cộng đồng, múa hát. Âm nhạc phát triển, có nhiều nhạc cụ; các hình ảnh trên trống đồng cho thấy cảnh múa hát và biểu diễn nhạc cụ như khèn, chuông, sênh, phách. Trống đồng Đông Sơn được dùng trong lễ hội và nghi lễ cộng đồng. Chưa có chữ viết và pháp luật thành văn.",
+            "images": [
+                {
+                    "name": "Thạp đồng",
+                    "url": "https://cdnmedia.baotintuc.vn/2015/02/14/08/39/thap-dao-thinh.jpg"
+                },
+                {
+                    "name": "Hoa văn trống đồng Đông Sơn (hình thú, hoạt động sinh hoạt, nhạc cụ, lễ hỗi, ...)",
+                    "url": "https://file.hstatic.net/200000283705/file/mat-trong-dong-hien-dai-chat-lieu-dong-do_8b6c45f4726a493fa6b38bf7bf179c0d.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "Nghệ thuật",
+                    "url": "https://e7.pngegg.com/pngimages/543/136/png-clipart-art-computer-icons-painting-painting-painting-brush.png"
+                },
+                {
+                    "name": "Chữ viết",
+                    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRODokKqteOndixhhDJW3hTv_Hiz7l8QNVK0A&s"
+                }
+            ]
+        },
+        "lifestyle_and_eating_habits": {
+            "info": "Lương thực chính là lúa gạo (gạo nếp, gạo tẻ). Bữa ăn thường gồm cơm, rau, củ, quả và cá. Ngoài ra còn có sản phẩm từ chăn nuôi, săn bắt và đánh cá. Người Việt cổ sử dụng muối và mắm cá trong bữa ăn. Cuộc sống gắn chặt với nông nghiệp và sinh hoạt cộng đồng làng xã.",
+            "images": [
+                {
+                    "name": "Gạo",
+                    "url": "https://media.2dep.vn/upload/thuhuyennt/2021/07/19/cac-loai-luong-thuc-chinh-tren-the-gioi-ai-cung-nen-biet-1626705163-5.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "lifestyle",
+                    "url": "https://png.pngtree.com/png-clipart/20230922/original/pngtree-community-logo-vector-icon-illustration-human-life-meeting-vector-png-image_12520243.png"
+                },
+                {
+                    "name": "eating",
+                    "url": "https://png.pngtree.com/template/20190309/ourmid/pngtree-health-and-food-icon-image_64551.jpg"
+                }
+            ]
+        },
+        "house": {
+            "info": "Cư dân sống chủ yếu trong nhà sàn làm bằng gỗ, tre, nứa và lá. Nhà sàn phù hợp với điều kiện khí hậu nóng ẩm và môi trường sông nước. Các ngôi nhà thường quây quần thành xóm làng, tạo nên cộng đồng cư trú bền vững.",
+            "images": [
+                {
+                    "name": "Nhà sàn mái lồi",
+                    "url": "https://luocsutocviet.com/wp-content/uploads/2018/06/ngoclu_zps3ea00b64.jpg"
+                },
+                {
+                    "name": "Nhà sàn mãi võng",
+                    "url": "https://luocsutocviet.com/wp-content/uploads/2018/06/tri-hoang-ha_zps6b09e337.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "house",
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Home_icon_red-1.png"
+                }
+            ]
+        },
+        "cultural_symbol": {
+            "info": "Trống đồng Đông Sơn là biểu tượng tiêu biểu của văn minh Văn Lang - Âu Lạc, vừa là nhạc khí, vừa là tác phẩm nghệ thuật phản ánh đời sống và tín ngưỡng của cư dân Việt cổ.",
+            "images": [
+                {
+                    "name": "Trống đồng Đông Sơn",
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Trong_dong_Dong_Son.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "culture symbol",
+                    "url": "https://cdn-icons-png.freepik.com/512/3556/3556759.png"
+                }
+            ]
+        },
+
+        "clothing": {
+            "info": "Nam giới: đóng khố, cởi trần, đi chân đất. Nữ giới: mặc váy, áo yếm. Kiểu tóc phổ biến: xoã ngang vai, búi tó hoặc tết tóc. Người Việt cổ thích đeo đồ trang sức như vòng tay, khuyên tai, hạt chuỗi làm từ đá, sừng, ngà, đồng hoặc sắt. Trong các dịp lễ hội có thể đội mũ lông chim và đeo nhiều trang sức.",
+            "images": [
+                {
+                    "name": "Trang phục nam nữ (ngày thường và lễ hội)",
+                    "url": "https://khanranxua.com/wp-content/uploads/2024/11/trang-phuc-thoi-van-lang-au-lac.jpg"
+                }
+            ],
+            "icons": [
+                {
+                    "name": "clothing",
+                    "url": "https://www.shutterstock.com/image-vector/hanfu-traditional-dress-icon-elegant-260nw-2719673871.jpg"
+                }
+            ]
+        }
+    }
+}

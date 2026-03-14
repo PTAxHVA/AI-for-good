@@ -3,11 +3,39 @@ import { motion } from 'motion/react';
 import type { HistoricalEvent } from '../types/history.types';
 import { Badge } from '@/shared/ui/badge';
 import { cultureMarkers } from '../data/cultureMarkers';
+import { ImageWithFallback } from '@/shared/figma/ImageWithFallback';
 
 interface HistoryMapProps {
   selectedYear: number;
   onEventSelect: (event: HistoricalEvent) => void;
   unlockedEvents: string[];
+}
+
+function LegacyMarkerIcon() {
+  return (
+    <svg className="w-7 h-7 text-[#C8A452]" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+      <path d="M12 3.5l6 2.7v4.8c0 4-2.58 7.74-6 8.5-3.42-.76-6-4.5-6-8.5V6.2l6-2.7z" fill="#1A1A1A" />
+      <circle cx="12" cy="11" r="2.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function MarkerCoreIcon({ iconUrl, alt }: { iconUrl?: string; alt: string }) {
+  const [iconError, setIconError] = useState(false);
+
+  if (!iconUrl || iconError) {
+    return <LegacyMarkerIcon />;
+  }
+
+  return (
+    <ImageWithFallback
+      src={iconUrl}
+      alt={alt}
+      className="w-7 h-7 object-contain"
+      onErrorCapture={() => setIconError(true)}
+    />
+  );
 }
 
 export function HistoryMap({
@@ -97,17 +125,16 @@ export function HistoryMap({
                 />
 
                 <div
-                  className="relative w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[#8B1538] to-[#5C0F26] shadow-lg"
+                  className="relative w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[#A01A4A] to-[#6B0F2E] shadow-lg"
                   style={{
-                    border: '3px solid #C8A452',
-                    boxShadow: '0 4px 15px rgba(139, 21, 56, 0.5), inset 0 2px 5px rgba(0,0,0,0.3)',
+                    border: '2.5px solid #D4AF7A',
+                    boxShadow: '0 6px 20px rgba(139, 21, 56, 0.6), inset 0 1px 4px rgba(255,255,255,0.15)',
                   }}
                 >
-                  <svg className="w-7 h-7 text-[#C8A452]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                    <path d="M12 3.5l6 2.7v4.8c0 4-2.58 7.74-6 8.5-3.42-.76-6-4.5-6-8.5V6.2l6-2.7z" fill="#1A1A1A" />
-                    <circle cx="12" cy="11" r="2.5" fill="currentColor" />
-                  </svg>
+                  <MarkerCoreIcon
+                    iconUrl={event.cultureIcons?.[0]?.url}
+                    alt={event.cultureIcons?.[0]?.name || event.name}
+                  />
                 </div>
 
                 <motion.div

@@ -1,0 +1,152 @@
+import rawTestData from './test.json';
+import type { CultureSectionKey, HistoricalEvent, MediaAsset } from '../types/history.types';
+
+interface CultureSectionData {
+  info: string;
+  images: MediaAsset[];
+  icons: MediaAsset[];
+}
+
+interface CultureSectionMeta {
+  id: string;
+  label: string;
+  position: { x: number; y: number };
+  locationLabel: string;
+}
+
+type TestJsonShape = {
+  'Van Lang - Au Lac': Partial<Record<CultureSectionKey, Partial<CultureSectionData>>>;
+};
+
+const SECTION_ORDER: CultureSectionKey[] = [
+  'area',
+  'weather',
+  'economy_and_trade',
+  'culture',
+  'art_and_writing',
+  'lifestyle_and_eating_habits',
+  'house',
+  'cultural_symbol',
+  'clothing',
+];
+
+const SECTION_META: Record<CultureSectionKey, CultureSectionMeta> = {
+  area: {
+    id: 'marker1',
+    label: 'Phạm vi phân bố',
+    position: { x: 32, y: 28 },
+    locationLabel: 'Trung tâm lưu vực sông Hồng',
+  },
+  weather: {
+    id: 'marker2',
+    label: 'Tự nhiên / Khí hậu',
+    position: { x: 45, y: 24 },
+    locationLabel: 'Vùng đồng bằng và trung du',
+  },
+  economy_and_trade: {
+    id: 'marker3',
+    label: 'Kinh tế và giao thương',
+    position: { x: 58, y: 30 },
+    locationLabel: 'Hành lang giao thương Việt cổ',
+  },
+  culture: {
+    id: 'marker4',
+    label: 'Đời sống văn hoá / Tín ngưỡng',
+    position: { x: 28, y: 42 },
+    locationLabel: 'Không gian nghi lễ cộng đồng',
+  },
+  art_and_writing: {
+    id: 'marker5',
+    label: 'Nghệ thuật và chữ viết',
+    position: { x: 48, y: 45 },
+    locationLabel: 'Vùng truyền thuyết dân gian',
+  },
+  lifestyle_and_eating_habits: {
+    id: 'marker6',
+    label: 'Lối sống / Ăn uống',
+    position: { x: 36, y: 56 },
+    locationLabel: 'Đời sống sinh hoạt cư dân',
+  },
+  house: {
+    id: 'marker7',
+    label: 'Nhà ở',
+    position: { x: 52, y: 61 },
+    locationLabel: 'Không gian làng xóm định cư',
+  },
+  cultural_symbol: {
+    id: 'marker8',
+    label: 'Biểu tượng văn hoá',
+    position: { x: 40, y: 72 },
+    locationLabel: 'Trung tâm biểu tượng Việt cổ',
+  },
+  clothing: {
+    id: 'marker9',
+    label: 'Trang phục',
+    position: { x: 46, y: 82 },
+    locationLabel: 'Phong tục trang phục bản địa',
+  },
+};
+
+const testJson = rawTestData as TestJsonShape;
+const vanLangData = testJson['Van Lang - Au Lac'] ?? {};
+
+const toMediaAssets = (value: unknown): MediaAsset[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((item): item is { name?: unknown; url?: unknown } => typeof item === 'object' && item !== null)
+    .map((item) => ({
+      name: typeof item.name === 'string' ? item.name : '',
+      url: typeof item.url === 'string' ? item.url : '',
+    }))
+    .filter((item) => item.name && item.url);
+};
+
+const toSectionData = (key: CultureSectionKey): CultureSectionData => {
+  const section = vanLangData[key] ?? {};
+
+  return {
+    info: typeof section.info === 'string' ? section.info : '',
+    images: toMediaAssets(section.images),
+    icons: toMediaAssets(section.icons),
+  };
+};
+
+export const cultureMarkersFromTestJson: HistoricalEvent[] = SECTION_ORDER.map((sectionKey) => {
+  const meta = SECTION_META[sectionKey];
+  const sectionData = toSectionData(sectionKey);
+
+  return {
+    id: meta.id,
+    name: meta.label,
+    year: 1945,
+    position: meta.position,
+    period: 'Văn Lang - Âu Lạc',
+    unlocked: true,
+    level: 1,
+    location: meta.locationLabel,
+    locationLabel: meta.locationLabel,
+    cultureSectionKey: sectionKey,
+    cultureContent: sectionData.info,
+    cultureImages: sectionData.images,
+    cultureIcons: sectionData.icons,
+    basicInfo: {
+      location: meta.locationLabel,
+      time: 'Thời kỳ Văn Lang - Âu Lạc',
+      mainEvent: meta.label,
+    },
+    detailedInfo: {
+      cause: meta.label,
+      development: meta.label,
+      result: meta.label,
+      characters: [],
+    },
+    advancedInfo: {
+      territoryChanges: meta.label,
+      campaignMap: meta.label,
+      marchRoutes: [],
+    },
+  };
+});

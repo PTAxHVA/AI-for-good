@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const User = require('../models/user')
 
-userRouter.post('/', async (request, response) => {
+userRouter.post('/', async (request, response, next) => {
     const {username, name, password} = request.body
 
     if (!username || !password){
@@ -15,17 +15,24 @@ userRouter.post('/', async (request, response) => {
         )
     }
 
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(password, saltRounds)
+    try {
+        const saltRounds = 10
+        const passwordHash = await bcrypt.hash(password, saltRounds)
 
-    const user = new User({
-        username,
-        name,
-        passwordHash,
-    })
-    const savedUser = await user.save()
+        const user = new User({
+            username,
+            name,
+            passwordHash,
+        })
+        const savedUser = await user.save()
 
-    response.status(201).json(savedUser)
+        response.status(201).json(savedUser)
+    } catch (error) {
+        if (error?.name === 'MongoServerError' && error?.code === 11000) {
+            return response.status(400).json({ error: 'username already exists' })
+        }
+        next(error)
+    }
 })
 
 userRouter.get('/', async (request,response) => {

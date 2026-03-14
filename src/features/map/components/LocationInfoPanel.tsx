@@ -5,6 +5,7 @@ import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card } from '@/shared/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
+import { ImageWithFallback } from '@/shared/figma/ImageWithFallback';
 import { MapPin, Calendar, User, TrendingUp, Map, ChevronRight, Lock, Unlock } from 'lucide-react';
 
 interface LocationInfoPanelProps {
@@ -28,6 +29,7 @@ export function LocationInfoPanel({ event }: LocationInfoPanelProps) {
 
   const cultureContent = event.cultureContent
     ?? (event.cultureFieldKey && event.cultureData ? event.cultureData[event.cultureFieldKey] : undefined);
+  const cultureImages = event.cultureImages ?? [];
 
   // Single-section rendering for culture markers
   if (cultureContent) {
@@ -51,6 +53,29 @@ export function LocationInfoPanel({ event }: LocationInfoPanelProps) {
           <p className="text-slate-400 text-sm mb-2">Nội dung</p>
           <p className="text-white text-sm leading-relaxed">{cultureContent}</p>
         </Card>
+
+        {cultureImages.length > 0 && (
+          <Card className="p-4 bg-slate-800 border-slate-700">
+            <p className="text-slate-400 text-sm mb-2">Hình ảnh tham khảo</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {cultureImages.map((image, index) => (
+                <div
+                  key={`${image.url}-${index}`}
+                  className="rounded-lg border border-slate-700 bg-slate-900/70 overflow-hidden hover:border-slate-600 transition-colors"
+                >
+                  <div className="h-32 rounded-t-lg overflow-hidden bg-slate-900">
+                    <ImageWithFallback
+                      src={image.url}
+                      alt={image.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="text-slate-300 text-xs p-2 line-clamp-2">{image.name}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
       </div>
     );
   }

@@ -12,13 +12,18 @@ interface TimelineProps {
 }
 
 const historicalPeriods = [
-  { name: 'Thời Bắc thuộc', start: 0, end: 938, color: 'bg-red-500' },
-  { name: 'Tự chủ', start: 939, end: 1009, color: 'bg-orange-500' },
-  { name: 'Nhà Lý-Trần', start: 1010, end: 1400, color: 'bg-yellow-500' },
-  { name: 'Nhà Lê', start: 1418, end: 1788, color: 'bg-green-500' },
-  { name: 'Nhà Nguyễn', start: 1802, end: 1945, color: 'bg-blue-500' },
-  { name: 'Cận đại', start: 1945, end: 2000, color: 'bg-purple-500' }
+  { name: 'Văn Lang - Âu Lạc', start: -2879, end: -179, color: 'bg-yellow-500' },
 ];
+
+const yearMarkers = [-2879, -2500, -2000, -1500, -1000, -500, -179];
+
+const formatYear = (year: number) => {
+  if (year < 0) {
+    return `${Math.abs(year)} TCN`;
+  }
+
+  return `${year}`;
+};
 
 export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: TimelineProps) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -179,7 +184,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
         {/* Year slider */}
         <div className="flex-1 flex items-center gap-3">
           <span className="text-slate-400 text-sm min-w-[60px]">
-            {minYear}
+            {formatYear(minYear)}
           </span>
           
           <Slider
@@ -192,7 +197,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
           />
           
           <span className="text-slate-400 text-sm min-w-[60px] text-right">
-            {maxYear}
+            {formatYear(maxYear)}
           </span>
         </div>
 
@@ -214,7 +219,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
 
       {/* Year markers */}
       <div className="mt-2 relative h-4">
-        {[minYear, 1200, 1400, 1600, 1800, maxYear].filter((year, index, arr) => arr.indexOf(year) === index).map((year) => {
+        {yearMarkers.map((year) => {
           const position = ((year - minYear) / (maxYear - minYear)) * 100;
           return (
             <div
@@ -224,7 +229,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
             >
               <div className="w-px h-2 bg-slate-600" />
               <span className="text-slate-500 text-xs absolute top-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                {year}
+                {formatYear(year)}
               </span>
             </div>
           );

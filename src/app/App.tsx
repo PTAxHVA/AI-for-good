@@ -29,7 +29,7 @@ function App() {
       return null;
     }
   });
-  const [selectedYear, setSelectedYear] = useState(1945);
+  const [selectedYear, setSelectedYear] = useState(-258);
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
   const [activeView, setActiveView] = useState<'map' | 'dashboard'>('map');
   const [showNPCChat, setShowNPCChat] = useState(false);
@@ -172,8 +172,8 @@ function App() {
               <Timeline
                 selectedYear={selectedYear}
                 onYearChange={setSelectedYear}
-                minYear={1000}
-                maxYear={2000}
+                minYear={-2879}
+                maxYear={-179}
               />
             </div>
 

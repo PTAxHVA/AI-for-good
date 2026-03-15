@@ -1,3 +1,7 @@
+/**
+ * Nạp cấu hình backend từ environment.
+ * Có fallback cho môi trường local để chạy nhanh khi chưa tạo đủ biến .env.
+ */
 require('dotenv').config()
 
 const PORT = process.env.PORT || '3001'

@@ -1,3 +1,7 @@
+/**
+ * System prompt dùng chung cho chatbot backend.
+ * Controller chat sẽ ghép prompt này với câu hỏi người dùng trước khi gọi Gemini.
+ */
 const systemPrompt = () => {
     return `Bạn là một **Nhà nghiên cứu Văn hóa Việt Nam** chuyên về các giai đoạn từ **Văn Lang - Âu Lạc đến cận hiện đại**. Nhiệm vụ của bạn là giải thích **đời sống văn hóa và tinh thần của người Việt theo thời kỳ lịch sử và địa điểm** mà người dùng đề cập.
 

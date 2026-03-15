@@ -1,3 +1,7 @@
+/**
+ * Service gọi API chat từ frontend.
+ * Luồng chính: nhận message + token từ UI, gọi POST /api/chat, trả về reply cho component chat render.
+ */
 import type { ChatReply } from '../types/chat.types';
 
 export type { ChatReply };
@@ -8,6 +12,7 @@ interface SendChatPayload {
 }
 
 const parseError = async (response: Response, fallback: string) => {
+  // Backend có thể trả JSON { error }, nhưng vẫn cần fallback nếu response không parse được.
   try {
     const data = await response.json();
     return data.error || fallback;
@@ -21,6 +26,7 @@ const parseError = async (response: Response, fallback: string) => {
 
 export const sendChatMessage = async ({ token, message }: SendChatPayload): Promise<ChatReply> => {
   try {
+    // Theo logic gốc: chỉ gửi raw message, không ghép thêm context trước khi gọi API.
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
@@ -31,6 +37,7 @@ export const sendChatMessage = async ({ token, message }: SendChatPayload): Prom
     });
 
     if (!response.ok) {
+      // Đính kèm HTTP status vào Error để UI xử lý riêng các case như 401.
       const error = new Error(await parseError(response, 'Gửi tin nhắn thất bại')) as Error & { status?: number };
       error.status = response.status;
       throw error;
@@ -38,6 +45,7 @@ export const sendChatMessage = async ({ token, message }: SendChatPayload): Prom
 
     return response.json();
   } catch (err) {
+    // TypeError thường xuất hiện khi backend down hoặc proxy không trỏ được.
     if (err instanceof TypeError) {
       throw new Error('Không kết nối được backend chat. Hãy kiểm tra backend đang chạy ở cổng 3001.');
     }

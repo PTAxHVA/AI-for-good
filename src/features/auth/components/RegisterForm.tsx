@@ -1,3 +1,7 @@
+/**
+ * Form đăng ký tài khoản.
+ * Sau khi register thành công, component chuyển user về màn hình login để đăng nhập lấy token.
+ */
 import { FormEvent, useState } from 'react';
 import { registerUser } from '../services/auth.service';
 import { Button } from '@/shared/ui/button';
@@ -7,6 +11,7 @@ interface RegisterFormProps {
 }
 
 export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+  // Dữ liệu form và trạng thái phản hồi từ API.
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +21,14 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Mỗi lần submit sẽ clear thông báo trước đó để tránh gây hiểu nhầm.
     setError('');
     setMessage('');
     setLoading(true);
 
     try {
       await registerUser({ name, username, password });
+      // Giữ flow auth đơn giản: đăng ký xong quay lại login.
       setMessage('Đăng ký thành công. Vui lòng đăng nhập.');
       setName('');
       setUsername('');

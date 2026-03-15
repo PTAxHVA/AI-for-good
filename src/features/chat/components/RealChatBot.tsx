@@ -1,3 +1,7 @@
+/**
+ * UI chatbot ở panel phải.
+ * Component này quản lý trạng thái hội thoại phía client và gọi chat.service để lấy phản hồi từ backend.
+ */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { HistoricalEvent } from '@/features/map/types/history.types';
 import { Button } from '@/shared/ui/button';
@@ -19,6 +23,7 @@ interface Message {
 }
 
 export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChatBotProps) {
+  // Danh sách tin nhắn được giữ ở local state để render realtime.
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -31,6 +36,7 @@ export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChat
   const [error, setError] = useState('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
+  // selectedContext đến từ marker đang chọn trên map; hiện dùng để hiển thị ngữ cảnh cho người dùng.
   const context = useMemo<ChatContext | undefined>(() => {
     if (!selectedContext) {
       return undefined;
@@ -45,6 +51,7 @@ export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChat
   }, [selectedContext]);
 
   useEffect(() => {
+    // Tự cuộn xuống cuối khi có tin nhắn mới hoặc bot đang typing.
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
@@ -67,6 +74,7 @@ export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChat
 
     try {
       setIsTyping(true);
+      // Luồng gửi gốc: chỉ gửi message + token.
       const result = await sendChatMessage({ token, message });
       setMessages((prev) => [
         ...prev,
@@ -78,6 +86,7 @@ export function RealChatBot({ token, selectedContext, onUnauthorized }: RealChat
       ]);
     } catch (err) {
       const status = (err as Error & { status?: number }).status;
+      // Token hết hạn/không hợp lệ -> đẩy quyền xử lý logout về App.
       if (status === 401 && onUnauthorized) {
         onUnauthorized();
         return;

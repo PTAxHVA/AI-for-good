@@ -1,3 +1,8 @@
+/**
+ * Controller người dùng:
+ * - POST /api/users: đăng ký user mới
+ * - GET /api/users: trả danh sách user + lịch sử chat (phục vụ debug/admin ở môi trường dev)
+ */
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const User = require('../models/user')
@@ -5,6 +10,7 @@ const User = require('../models/user')
 userRouter.post('/', async (request, response, next) => {
     const {username, name, password} = request.body
 
+    // Validate input tối thiểu ở controller để phản hồi lỗi rõ ràng cho frontend.
     if (!username || !password){
         return response.status(400).json({error: 'Username or password required'})
     }
@@ -17,6 +23,7 @@ userRouter.post('/', async (request, response, next) => {
 
     try {
         const saltRounds = 10
+        // Password chỉ lưu dưới dạng hash, không lưu plain text.
         const passwordHash = await bcrypt.hash(password, saltRounds)
 
         const user = new User({
@@ -28,6 +35,7 @@ userRouter.post('/', async (request, response, next) => {
 
         response.status(201).json(savedUser)
     } catch (error) {
+        // Mongo duplicate key -> trả thông báo business dễ hiểu.
         if (error?.name === 'MongoServerError' && error?.code === 11000) {
             return response.status(400).json({ error: 'username already exists' })
         }
@@ -35,9 +43,10 @@ userRouter.post('/', async (request, response, next) => {
     }
 })
 
-userRouter.get('/', async (request,response) => {
-  const users = await User.find({}).populate('chatHistory')
-  response.json(users)
+usersRouter.get('/', async (request, response) => {
+  return response.status(403).json({
+    error: 'This endpoint is disabled in public demo.',
+  })
 })
 
 module.exports = userRouter

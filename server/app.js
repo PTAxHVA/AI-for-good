@@ -1,3 +1,7 @@
+/**
+ * App Express chính của backend.
+ * File này chịu trách nhiệm: kết nối MongoDB, gắn middleware chung, mount router auth/chat.
+ */
 const cors = require('cors');
 const config = require('./utils/config')
 const express = require('express')
@@ -12,6 +16,7 @@ const app = express();
 logger.info("Connecting to MongoDB")
 
 mongoose
+  // Kết nối DB ngay khi app khởi tạo để các router có thể dùng model Mongoose.
   .connect(config.MONGODB_URI, {family: 4, serverSelectionTimeoutMS: 5000})
   .then(() => {
     logger.info("Connected to MongoDB")
@@ -27,6 +32,7 @@ app.use(middleware.tokenExtractor)
 app.use(cors());
 
 app.use((request, response, next) => {
+  // Login/register phụ thuộc trực tiếp vào DB; trả 503 sớm nếu DB chưa sẵn sàng.
   if (
     (request.path.startsWith('/api/login') || request.path.startsWith('/api/users')) &&
     mongoose.connection.readyState !== 1
@@ -42,6 +48,7 @@ app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/chat', chatRouter)
 
+// errorHandler luôn đặt sau router để bắt lỗi phát sinh trong các route phía trên.
 app.use(middleware.errorHandler)
 
 module.exports = app

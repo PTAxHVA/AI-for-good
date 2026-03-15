@@ -1,3 +1,7 @@
+/**
+ * Form đăng nhập của frontend.
+ * Vai trò: thu thập credentials, gọi auth.service, và đẩy user/token về App khi đăng nhập thành công.
+ */
 import { FormEvent, useState } from 'react';
 import type { LoggedUser } from '../types/auth.types';
 import { loginUser } from '../services/auth.service';
@@ -9,6 +13,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onLoginSuccess, onSwitchToRegister }: LoginFormProps) {
+  // State cục bộ chỉ phục vụ cho lifecycle submit form.
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,11 +21,13 @@ export function LoginForm({ onLoginSuccess, onSwitchToRegister }: LoginFormProps
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Reset trạng thái trước mỗi lần submit để tránh giữ lỗi cũ trên UI.
     setError('');
     setLoading(true);
 
     try {
       const user = await loginUser({ username, password });
+      // App sẽ lưu token vào localStorage và mở giao diện chính.
       onLoginSuccess(user);
       setUsername('');
       setPassword('');

@@ -1,3 +1,9 @@
+/**
+ * Controller chatbot:
+ * - Xác thực token
+ * - Gọi Gemini với system prompt
+ * - Lưu cả câu hỏi user và câu trả lời bot vào chatHistory
+ */
 const chatRouter = require("express").Router();
 const Chat = require("../models/chat");
 const User = require("../models/user");
@@ -11,6 +17,7 @@ chatRouter.post("/", async (request, response) => {
   const body = request.body || {}
   const message = typeof body.message === 'string' ? body.message.trim() : ''
 
+  // API contract bắt buộc có message dạng string.
   if (!message) {
     return response.status(400).json({ error: 'Thiếu nội dung câu hỏi. Vui lòng gửi body.message dạng string.' })
   }
@@ -21,6 +28,7 @@ chatRouter.post("/", async (request, response) => {
 
   let decodedToken
   try {
+    // Token được tách từ middleware.tokenExtractor.
     decodedToken = jwt.verify(request.token, config.SECRET)
   } catch (error) {
     logger.error('JWT verify error:', error.name, error.message)
@@ -53,6 +61,7 @@ chatRouter.post("/", async (request, response) => {
 
     let textReply = ''
     try {
+      // Prompt hệ thống + câu hỏi user là đầu vào duy nhất gửi lên model.
       const result = await model.generateContent(
         `${systemPrompt()}. Câu hỏi: ${message}`,
       );
@@ -80,6 +89,7 @@ chatRouter.post("/", async (request, response) => {
 
     const savedBotMessage = await botMessage.save()
     
+    // Mỗi lượt chat ghi 2 bản ghi (user + bot) để có thể truy vết hội thoại.
     user.chatHistory = user.chatHistory.concat([
       savedChat._id,
       savedBotMessage._id,

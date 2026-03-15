@@ -1,3 +1,9 @@
+/**
+ * Panel thông tin ở cột phải.
+ * Component hỗ trợ 2 chế độ:
+ * - Culture marker từ test.json (ưu tiên render theo cultureContent).
+ * - Event legacy nhiều cấp (level 1-3) để tương thích dữ liệu cũ.
+ */
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { HistoricalEvent } from '../types/history.types';
@@ -13,10 +19,12 @@ interface LocationInfoPanelProps {
 }
 
 export function LocationInfoPanel({ event }: LocationInfoPanelProps) {
+  // Trạng thái mở khóa chỉ áp dụng cho luồng legacy nhiều cấp thông tin.
   const [unlockedLevel, setUnlockedLevel] = useState(1);
   const [activeTab, setActiveTab] = useState('level1');
 
   useEffect(() => {
+    // Mỗi khi đổi event, reset panel về trạng thái ban đầu để tránh "rò" cấp mở khóa.
     setUnlockedLevel(1);
     setActiveTab('level1');
   }, [event.id]);
@@ -31,7 +39,7 @@ export function LocationInfoPanel({ event }: LocationInfoPanelProps) {
     ?? (event.cultureFieldKey && event.cultureData ? event.cultureData[event.cultureFieldKey] : undefined);
   const cultureImages = event.cultureImages ?? [];
 
-  // Single-section rendering for culture markers
+  // Nhánh render chính cho marker văn hoá mới (nguồn test.json qua adapter).
   if (cultureContent) {
     return (
       <div className="space-y-4">
@@ -80,6 +88,7 @@ export function LocationInfoPanel({ event }: LocationInfoPanelProps) {
     );
   }
 
+  // Nhánh fallback cho dữ liệu event legacy.
   return (
     <div className="space-y-4">
       <div>

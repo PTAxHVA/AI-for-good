@@ -1,3 +1,9 @@
+/**
+ * App là component điều phối luồng chính:
+ * - Auth (login/register + lưu token)
+ * - Bản đồ lịch sử (map + timeline + panel phải)
+ * - Các tool phụ (chat, connector, quiz, dashboard)
+ */
 import { useState } from 'react';
 import { LoginPage } from '@/features/auth/components/LoginPage';
 import { RealChatBot } from '@/features/chat/components/RealChatBot';
@@ -16,6 +22,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 import { MapPin, MessageSquare, Network, BookOpen, BarChart3, LogOut } from 'lucide-react';
 
 function App() {
+  // Khôi phục phiên đăng nhập từ localStorage để tránh bắt đăng nhập lại khi refresh trang.
   const [user, setUser] = useState<LoggedUser | null>(() => {
     const saved = window.localStorage.getItem('loggedUser');
     if (!saved) {
@@ -29,7 +36,9 @@ function App() {
       return null;
     }
   });
+  // selectedYear điều khiển timeline và đồng bộ với map theo giai đoạn Văn Lang - Âu Lạc.
   const [selectedYear, setSelectedYear] = useState(-258);
+  // selectedEvent là "nguồn ngữ cảnh" dùng chung cho panel thông tin và chatbot.
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
   const [activeView, setActiveView] = useState<'map' | 'dashboard'>('map');
   const [showNPCChat, setShowNPCChat] = useState(false);
@@ -39,6 +48,7 @@ function App() {
   const [unlockedEvents] = useState<string[]>([]);
 
   const handleEventUnlock = (event: HistoricalEvent) => {
+    // Khi click marker trên map, App nhận event rồi truyền xuống panel/chat ở cột phải.
     setSelectedEvent(event);
   };
 
@@ -48,11 +58,13 @@ function App() {
   };
 
   const handleLoginSuccess = (loggedUser: LoggedUser) => {
+    // Lưu đầy đủ object login (bao gồm token) để dùng cho các API cần Authorization.
     window.localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
     setUser(loggedUser);
   };
 
   const handleLogout = () => {
+    // Logout cần reset toàn bộ context liên quan user để tránh rò state giữa phiên.
     window.localStorage.removeItem('loggedUser');
     setUser(null);
     setSelectedEvent(null);
@@ -62,6 +74,7 @@ function App() {
   };
 
   if (!user) {
+    // Chưa có user -> chỉ render luồng auth.
     return <LoginPage onLoginSuccess={handleLoginSuccess} />;
   }
 
@@ -163,6 +176,7 @@ function App() {
             <div className="flex-1 flex flex-col">
               <div className="flex-1 relative">
                 <HistoryMap
+                  // Map chỉ render marker + phát event ngược về App khi người dùng chọn một marker.
                   selectedYear={selectedYear}
                   onEventSelect={handleEventUnlock}
                   unlockedEvents={unlockedEvents}
@@ -170,6 +184,7 @@ function App() {
               </div>
               
               <Timeline
+                // Timeline điều chỉnh "trục thời gian" chung, App giữ state để đồng bộ toàn màn hình.
                 selectedYear={selectedYear}
                 onYearChange={setSelectedYear}
                 minYear={-2879}
@@ -199,6 +214,7 @@ function App() {
                 <TabsContent value="chat" className="h-full">
                   {showNPCChat && (
                     <RealChatBot
+                      // Token đi từ App xuống chatbot để gọi backend chat có Bearer auth.
                       token={user.token}
                       selectedContext={selectedEvent}
                       onUnauthorized={handleLogout}

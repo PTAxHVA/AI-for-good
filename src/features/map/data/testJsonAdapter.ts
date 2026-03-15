@@ -1,3 +1,7 @@
+/**
+ * Adapter chuyển dữ liệu thô từ test.json sang shape HistoricalEvent mà UI map/panel đang dùng.
+ * Mục tiêu là giữ backward compatibility, tránh phải rewrite các component hiện có.
+ */
 import rawTestData from './test.json';
 import type { CultureSectionKey, HistoricalEvent, MediaAsset } from '../types/history.types';
 
@@ -30,6 +34,7 @@ const SECTION_ORDER: CultureSectionKey[] = [
   'clothing',
 ];
 
+// Mapping metadata cố định cho từng section: id marker, label hiển thị và vị trí trên bản đồ.
 const SECTION_META: Record<CultureSectionKey, CultureSectionMeta> = {
   area: {
     id: 'marker1',
@@ -91,6 +96,7 @@ const testJson = rawTestData as TestJsonShape;
 const vanLangData = testJson['Van Lang - Au Lac'] ?? {};
 
 const toMediaAssets = (value: unknown): MediaAsset[] => {
+  // Chuẩn hóa mảng media từ JSON và loại bỏ item thiếu name/url để UI render an toàn.
   if (!Array.isArray(value)) {
     return [];
   }
@@ -105,6 +111,7 @@ const toMediaAssets = (value: unknown): MediaAsset[] => {
 };
 
 const toSectionData = (key: CultureSectionKey): CultureSectionData => {
+  // Mỗi section có thể thiếu field; adapter luôn trả về object đầy đủ để tránh null-check rải rác ở UI.
   const section = vanLangData[key] ?? {};
 
   return {
@@ -118,6 +125,7 @@ export const cultureMarkersFromTestJson: HistoricalEvent[] = SECTION_ORDER.map((
   const meta = SECTION_META[sectionKey];
   const sectionData = toSectionData(sectionKey);
 
+  // Dựng event theo shape cũ để HistoryMap/LocationInfoPanel/Chat có thể dùng ngay.
   return {
     id: meta.id,
     name: meta.label,

@@ -1,8 +1,13 @@
+/**
+ * Tầng gọi API auth của frontend.
+ * Tách riêng service giúp component form tập trung vào UI/state và không chứa chi tiết request HTTP.
+ */
 import type { LoggedUser, LoginCredentials, RegisterPayload } from '../types/auth.types';
 
 export type { LoggedUser, LoginCredentials, RegisterPayload };
 
 const parseError = async (response: Response, fallback: string) => {
+  // Ưu tiên message từ backend để hiển thị đúng nguyên nhân cho người dùng.
   try {
     const data = await response.json();
     return data.error || fallback;
@@ -15,6 +20,7 @@ const parseError = async (response: Response, fallback: string) => {
 };
 
 const getNetworkErrorMessage = (error: unknown) => {
+  // fetch sẽ ném TypeError khi backend không reachable (không phải lỗi business).
   if (error instanceof TypeError) {
     return 'Không kết nối được backend auth. Hãy chạy backend tại http://localhost:3001.';
   }
@@ -23,6 +29,7 @@ const getNetworkErrorMessage = (error: unknown) => {
 
 export const loginUser = async (credentials: LoginCredentials): Promise<LoggedUser> => {
   try {
+    // Contract login giữ nguyên: POST /api/login với username/password.
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -32,6 +39,7 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoggedUs
     });
 
     if (!response.ok) {
+      // Mapping fallback theo status để đảm bảo luôn có thông báo thân thiện.
       const fallback = response.status === 401
         ? 'Sai username hoặc password.'
         : response.status >= 500
@@ -52,6 +60,7 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoggedUs
 
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {
   try {
+    // Contract register giữ nguyên: POST /api/users.
     const response = await fetch('/api/users', {
       method: 'POST',
       headers: {

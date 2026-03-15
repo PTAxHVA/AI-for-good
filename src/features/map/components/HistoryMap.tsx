@@ -1,3 +1,7 @@
+/**
+ * Render bản đồ và các marker văn hoá.
+ * Luồng dữ liệu: `cultureMarkers` (đã adapter từ test.json) -> render marker -> click marker gọi `onEventSelect`.
+ */
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import type { HistoricalEvent } from '../types/history.types';
@@ -24,6 +28,7 @@ function LegacyMarkerIcon() {
 function MarkerCoreIcon({ iconUrl, alt }: { iconUrl?: string; alt: string }) {
   const [iconError, setIconError] = useState(false);
 
+  // Ưu tiên icon từ dữ liệu; nếu thiếu hoặc load lỗi thì fallback về SVG mặc định.
   if (!iconUrl || iconError) {
     return <LegacyMarkerIcon />;
   }
@@ -43,6 +48,7 @@ export function HistoryMap({
   onEventSelect,
   unlockedEvents: _unlockedEvents,
 }: HistoryMapProps) {
+  // Dùng hover state để đồng bộ hiệu ứng marker + tooltip.
   const [hoveredEvent, setHoveredEvent] = useState<string | null>(null);
 
   return (
@@ -72,6 +78,7 @@ export function HistoryMap({
           <div className="absolute inset-0 bg-black/5" />
         </div>
 
+        {/* Marker được dựng trực tiếp theo vị trí (%) đã map sẵn trong adapter dữ liệu. */}
         {cultureMarkers.map((event) => {
           const isHovered = hoveredEvent === event.id;
 
@@ -92,6 +99,7 @@ export function HistoryMap({
               transition={{ duration: 0.3 }}
               onMouseEnter={() => setHoveredEvent(event.id)}
               onMouseLeave={() => setHoveredEvent(null)}
+              // Điểm nối chính sang panel/chat: click marker sẽ đẩy event lên App.
               onClick={() => onEventSelect(event)}
             >
               <div className="relative">

@@ -1,3 +1,7 @@
+/**
+ * Timeline điều khiển trục thời gian chung của màn hình map.
+ * Dải năm hiện tại được cấu hình cho giai đoạn Văn Lang - Âu Lạc (TCN).
+ */
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
@@ -12,12 +16,14 @@ interface TimelineProps {
 }
 
 const historicalPeriods = [
+  // MVP hiện chỉ dùng một period để khớp với bộ dữ liệu bản đồ hiện tại.
   { name: 'Văn Lang - Âu Lạc', start: -2879, end: -179, color: 'bg-yellow-500' },
 ];
 
 const yearMarkers = [-2879, -2500, -2000, -1500, -1000, -500, -179];
 
 const formatYear = (year: number) => {
+  // Chuẩn hóa hiển thị năm TCN để tránh hiển thị số âm thô trên UI.
   if (year < 0) {
     return `${Math.abs(year)} TCN`;
   }
@@ -29,6 +35,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const intervalRef = useRef<number | null>(null);
+  // yearRef giữ giá trị năm mới nhất cho callback setInterval, tránh stale closure khi đang play.
   const yearRef = useRef(selectedYear);
 
   const clearPlaybackInterval = () => {
@@ -39,6 +46,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
   };
 
   useEffect(() => {
+    // Đồng bộ ref mỗi khi selectedYear từ bên ngoài thay đổi (drag slider, skip...).
     yearRef.current = selectedYear;
   }, [selectedYear]);
 
@@ -50,6 +58,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
 
     clearPlaybackInterval();
     intervalRef.current = window.setInterval(() => {
+      // Play tiến dần về maxYear; đến ngưỡng thì dừng tự động.
       const nextYear = Math.min(maxYear, yearRef.current + (10 * playbackSpeed));
       yearRef.current = nextYear;
       onYearChange(nextYear);
@@ -66,6 +75,7 @@ export function Timeline({ selectedYear, onYearChange, minYear, maxYear }: Timel
   }, [isPlaying, playbackSpeed, maxYear, onYearChange]);
 
   const handleSliderChange = (value: number[]) => {
+    // Người dùng can thiệp thủ công -> dừng playback để tránh tranh chấp state.
     clearPlaybackInterval();
     setIsPlaying(false);
     yearRef.current = value[0];

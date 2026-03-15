@@ -6,10 +6,28 @@
  */
 const logger = require('./logger')
 
+const sanitizeRequestBody = (body) => {
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+        return body
+    }
+
+    const safeBody = { ...body }
+    for (const key of Object.keys(safeBody)) {
+        const normalizedKey = key.toLowerCase()
+        if (normalizedKey === 'password' || normalizedKey === 'token' || normalizedKey === 'authorization') {
+            safeBody[key] = '***'
+        } else if (normalizedKey === 'message') {
+            safeBody[key] = '[redacted]'
+        }
+    }
+
+    return safeBody
+}
+
 const requestLogger = (request, response, next) => {
     logger.info('Method:', request.method)
     logger.info('Path: ', request.path)
-    logger.info('Body: ', request.body)
+    logger.info('Body: ', sanitizeRequestBody(request.body))
     logger.info('---')
     next()
 }
@@ -30,7 +48,7 @@ const errorHandler = (error, request, response, next) => {
     logger.error(error.message)
 
     // Giữ mapping lỗi theo chuẩn hiện tại để không làm đổi API contract.
-    if (error.name === 'CaseError'){
+    if (error.name === 'CastError'){
         return response.status(400).send({error: 'malformatted id'})
     }
     else if (error.name === 'ValidationError'){

@@ -43,7 +43,7 @@ userRouter.post('/', async (request, response, next) => {
     }
 })
 
-usersRouter.get('/', async (request, response) => {
+userRouter.get('/', async (request, response) => {
   return response.status(403).json({
     error: 'This endpoint is disabled in public demo.',
   })
